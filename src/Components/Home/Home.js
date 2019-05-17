@@ -1,9 +1,10 @@
-import React from 'react';
+import React from "react";
 import Note from "./Note";
-import Card from "react-bootstrap/Card";
-import ContentEditable from 'react-contenteditable'
+import Button from "react-bootstrap/Button";
+import {deleteNote, getNotes, saveNote, updateNote} from "./HomeApi";
+import {EditNote} from "./EditNote";
 
-const axios = require('axios');
+const axios = require("axios");
 
 export default class Home extends React.Component {
 
@@ -11,58 +12,100 @@ export default class Home extends React.Component {
         super(props);
         this.state = {
             notes: [],
-            isOnEdit: false,
-            onEditNote: ''
+            isOnEditNote: false,
+            editingNote: null,
+            isOnAddNote: false
         };
     }
 
-    componentDidMount() {
-        axios.get("http://localhost:1234/list-notes/" + this.props.username).then(res => {
-            this.setState({
-                notes: res.data
+    async componentDidMount() {
+        await axios.get("http://localhost:1234/list-notes/" + this.props.username)
+            .then(res => {
+                console.log(res.data);
+                if (res.data) {
+                    this.setState({
+                        notes: res.data
+                    });
+                }
+                else {
+                    //err in getting notes
+                    alert("Error in getting notes");
+                }
+            })
+            .catch(err => {
+                return false;
             });
-        }).catch((err) => {
-            console.log(err);
-        })
+        // let notes = await getNotes(this.props.username);
     }
 
-    handleCardClick = (notes) => {
+    handleCardClick = note => {
         this.setState({
-            isOnEdit: !this.state.isOnEdit,
-            onEditNote: notes
-        })
-        console.log(notes);
+            isOnEditNote: true,
+            editingNote: note
+        });
     };
 
-    handleTitleChange=(e)=>{
-        console.log(e.target.value)
-        //axios call to update title
+    handleNoteDelete = note => {
+        if(deleteNote(note.user,note.id))
+            alert("note deleted");
+        else
+            alert("note delete failed");
     };
 
-    handleContentChange=(e)=>{
-        console.log(e.target.value)
-        //axios call to update content
+    handleAddNote = () => {
+        let addingNote = {noteTitle: "", noteContent: "", createdAt: new Date()};
+        this.setState({
+            isOnAddNote: true,
+            editingNote: addingNote
+        });
+    };
+    handleTitleChange = e => {
+        let noteOnEdit = this.state.editingNote;
+        noteOnEdit.noteTitle = e.target.value;
+        this.setState({
+            editingNote: noteOnEdit
+        });
+    };
+
+    saveNote = () => {
+        console.log(this.state.editingNote);
+        if (this.state.isOnAddNote) {
+            if(saveNote(this.props.username,this.state.editingNote))
+                alert("note saved");
+            else
+                alert("note save failed");
+        } else if (this.state.isOnEditNote) {
+            console.log(this.state.editingNote);
+            if(updateNote(this.props.username, this.state.editingNote))
+                alert("updated note");
+            else
+                alert("update note failed");
+        }
+    };
+
+    handleContentChange = e => {
+        let noteOnEdit = this.state.editingNote;
+        noteOnEdit.noteContent = e.target.value;
+        this.setState({
+            editingNote: noteOnEdit
+        });
     };
 
     render() {
-        if(this.state.isOnEdit){
-            return(
-                <div>
-                    <Card style={{width: '18rem'}}>
-                        <Card.Body>
-                            <Card.Title><ContentEditable html={this.state.onEditNote.noteTitle} className={"content-editable"} onChange={this.handleTitleChange}/></Card.Title>
-                            <Card.Text><ContentEditable html={this.state.onEditNote.noteContent} className={"content-editable"} onChange={this.handleContentChange}/></Card.Text>
-                        </Card.Body>
-                    </Card>
-                </div>
-            )
+        if (this.state.isOnAddNote || this.state.isOnEditNote) {
+            return (
+               <EditNote EditingNote={this.state.editingNote} saveNote={this.saveNote} handleTitleChange={this.handleTitleChange} handleContentChange={this.handleContentChange}/>
+            );
         }
         return (
-                this.state.notes.map((notes) => {
+            <div className={"notes"} style={{display: "flex", justifyContent: "start"}} >
+                {this.state.notes.map(note => {
                     return (
-                        <Note notes={notes} handleCardClick={this.handleCardClick}/>
-                    )
-                })
-        )
+                        <Note note={note} handleCardClick={this.handleCardClick} handleNoteDelete={this.handleNoteDelete}/>
+                    );
+                })}
+                <Button onClick={this.handleAddNote} size={"sm"} style={{height: "fit-content"}}>+</Button>
+            </div>
+        );
     }
 }
