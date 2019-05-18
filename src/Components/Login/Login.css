@@ -1,0 +1,23 @@
+@media all and (min-width: 480px) {
+
+    .Login form {
+        margin: 10px auto 0;
+        max-width: 400px;
+        padding: 40px 40px;
+        background: #fff;
+        display: grid;
+    }
+
+    .Login Button {
+        margin: inherit;
+    }
+
+    .Login header {
+        font-size: inherit;
+        align-content: inherit;
+    }
+
+    .Login h2 {
+        align-content: center;
+    }
+}

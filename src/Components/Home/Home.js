@@ -1,7 +1,6 @@
 import React from "react";
 import Note from "./Note";
-import Button from "react-bootstrap/Button";
-import {deleteNote, getNotes, saveNote, updateNote} from "./HomeApi";
+import {deleteNote, saveNote, updateNote} from "./HomeApi";
 import {EditNote} from "./EditNote";
 
 const axios = require("axios");
@@ -19,6 +18,7 @@ export default class Home extends React.Component {
     }
 
     async componentDidMount() {
+        console.log("inside home")
         await axios.get("http://localhost:1234/list-notes/" + this.props.username)
             .then(res => {
                 console.log(res.data);
@@ -46,7 +46,7 @@ export default class Home extends React.Component {
     };
 
     handleNoteDelete = note => {
-        if(deleteNote(note.user,note.id))
+        if (deleteNote(note.user, note.id))
             alert("note deleted");
         else
             alert("note delete failed");
@@ -70,13 +70,13 @@ export default class Home extends React.Component {
     saveNote = () => {
         console.log(this.state.editingNote);
         if (this.state.isOnAddNote) {
-            if(saveNote(this.props.username,this.state.editingNote))
+            if (saveNote(this.props.username, this.state.editingNote))
                 alert("note saved");
             else
                 alert("note save failed");
         } else if (this.state.isOnEditNote) {
             console.log(this.state.editingNote);
-            if(updateNote(this.props.username, this.state.editingNote))
+            if (updateNote(this.props.username, this.state.editingNote))
                 alert("updated note");
             else
                 alert("update note failed");
@@ -94,17 +94,20 @@ export default class Home extends React.Component {
     render() {
         if (this.state.isOnAddNote || this.state.isOnEditNote) {
             return (
-               <EditNote EditingNote={this.state.editingNote} saveNote={this.saveNote} handleTitleChange={this.handleTitleChange} handleContentChange={this.handleContentChange}/>
+                <EditNote noteTitle={this.state.editingNote.noteTitle} noteContent={this.state.editingNote.noteContent}
+                          saveNote={this.saveNote} handleTitleChange={this.handleTitleChange}
+                          handleContentChange={this.handleContentChange}/>
             );
         }
         return (
-            <div className={"notes"} style={{display: "flex", justifyContent: "start"}} >
+            <div className={"notes"} style={{display: "flex", justifyContent: "start"}}>
                 {this.state.notes.map(note => {
                     return (
-                        <Note note={note} handleCardClick={this.handleCardClick} handleNoteDelete={this.handleNoteDelete}/>
+                        <Note note={note} handleCardClick={this.handleCardClick}
+                              handleNoteDelete={this.handleNoteDelete}/>
                     );
                 })}
-                <Button onClick={this.handleAddNote} size={"sm"} style={{height: "fit-content"}}>+</Button>
+                <button onClick={this.handleAddNote} size={"sm"} style={{height: "fit-content"}}>+</button>
             </div>
         );
     }

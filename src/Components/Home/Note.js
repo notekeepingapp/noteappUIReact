@@ -1,6 +1,5 @@
 import React from 'react';
 import Card from "react-bootstrap/Card";
-import Button from "react-bootstrap/Button";
 
 const Note = (props) => {
     return (
@@ -9,7 +8,10 @@ const Note = (props) => {
             height: 250, overflow: 'auto'
         }}>
             <Card>
-                <Button variant={"light"} onClick={()=>{props.handleNoteDelete(props.note)}} style={{width:"fit-content", alignSelf:"flex-end"}}>Delete</Button>
+                <button variant={"light"} onClick={() => {
+                    props.handleNoteDelete(props.note)
+                }} style={{width: "fit-content", alignSelf: "flex-end"}}>Delete
+                </button>
                 <div onClick={() => {
                     props.handleCardClick(props.note)
                 }}>
