@@ -25,14 +25,12 @@ export default class Home extends React.Component {
         if (this.props.location.props !== undefined) {
             await axios.get("http://localhost:1234/list-notes/" + this.props.location.props.username)
                 .then(res => {
-                    console.log(res.data);
                     if (res.data) {
                         this.setState({
                             notes: res.data
                         });
                     }
                     else {
-                        //err in getting notes
                         alert("Error in getting notes");
                     }
                 })
@@ -53,8 +51,7 @@ export default class Home extends React.Component {
     };
 
     handleNoteDelete = note => {
-        deleteNote(note.user, note.id).then(() => {
-        });
+        deleteNote(note.user, note.id);
         this.setState({
             deleted: true
         })
@@ -68,8 +65,8 @@ export default class Home extends React.Component {
             show: true
         });
     };
+
     handleTitleChange = e => {
-        console.log(e.target.value)
         let noteOnEdit = this.state.editingNote;
         noteOnEdit.noteTitle = e.target.value;
         this.setState({
@@ -78,26 +75,23 @@ export default class Home extends React.Component {
     };
 
     handleSaveNote = () => {
-        console.log(this.state.editingNote);
         if (this.state.isOnEditNote)
-            updateNote(this.props.location.props.username, this.state.editingNote).then(() => {
-            });
+            updateNote(this.props.location.props.username, this.state.editingNote);
         else
-            saveNote(this.props.location.props.username, this.state.editingNote).then(() => {
-            });
+            saveNote(this.props.location.props.username, this.state.editingNote);
         this.setState({
             show: false
         })
     };
 
     handleContentChange = e => {
-        console.log(e.target.value)
         let noteOnEdit = this.state.editingNote;
         noteOnEdit.noteContent = e.target.value;
         this.setState({
             editingNote: noteOnEdit
         });
     };
+
     handleClose = () => {
         this.setState({
             show: false
@@ -106,7 +100,6 @@ export default class Home extends React.Component {
 
     render() {
         let username = null;
-        console.log(this.props.location.props);
         if (this.props.location.props !== undefined) {
             username = this.props.location.props.username;
         }
