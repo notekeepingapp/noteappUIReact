@@ -10,7 +10,7 @@ const Note = (props) => {
             <Card>
                 <button variant={"light"} onClick={() => {
                     props.handleNoteDelete(props.note)
-                }} style={{width: "fit-content", alignSelf: "flex-end"}}>Delete
+                }} style={{width: "fit-content", height: "fit-content", alignSelf: "flex-end"}}>x
                 </button>
                 <div onClick={() => {
                     props.handleCardClick(props.note)

@@ -25,9 +25,11 @@ export const deleteNote = async (username, noteid) => {
 export const saveNote = async (username, note) => {
     await axios.post("http://localhost:1234/list-notes/" + username, note)
         .then(res => {
+            console.log(res);
             return true;
         })
         .catch(err => {
+            console.log(err);
             return false;
         });
 };

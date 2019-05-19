@@ -1,0 +1,18 @@
+.notes {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    margin-left: auto;
+    margin-right: auto;
+    width: 80%;
+    padding: 30px;
+}
+
+.card {
+    height: 85%;
+}
+
+.input {
+    border: aliceblue;
+    width: -moz-max-content;
+}

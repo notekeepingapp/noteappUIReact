@@ -1,7 +1,6 @@
 import React, {Component} from "react";
 import {isValidCredentials} from "./LoginApi";
 import "./Login.css"
-import Home from "../Home/Home";
 import {LoginView} from "./LoginView";
 
 class Login extends Component {
@@ -27,22 +26,17 @@ class Login extends Component {
         let isValid = await isValidCredentials(this.state.username, this.state.password);
         console.log(isValid);
         if (isValid) {
-            this.setState({
-                isValidUser: true
-            })
+            this.props.history.push({pathname: "/home", props: {username: this.state.username}});
         } else {
             alert("username and password are incorrect");
         }
     };
 
     render() {
-        if (!this.state.isValidUser) {
-            return (
-                <LoginView username={this.state.username} password={this.state.password}
-                           handleUserInput={this.handleUserInput} validateUser={this.validateUser}/>
-            )
-        }
-        return <Home username={this.state.username}/>;
+        return (
+            <LoginView username={this.state.username} password={this.state.password}
+                       handleUserInput={this.handleUserInput} validateUser={this.validateUser}/>
+        )
     }
 }
 
