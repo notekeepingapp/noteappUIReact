@@ -1,0 +1,13 @@
+version: '3'
+services:
+  springapp:
+    image: note-keeping-app
+    tty: true
+    ports:
+    - '5051:5051'
+    command: mvn clean spring-boot:run
+  reactapp:
+    image: note-keeping-app-ui
+    tty: true
+    ports:
+    - '5052:5052'
