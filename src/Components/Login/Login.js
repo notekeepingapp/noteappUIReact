@@ -21,9 +21,10 @@ class Login extends Component {
         })
     };
 
-    validateUser = async (e) => {
+    handleSubmit = (e) => {
+        console.log("in submit method");
         e.preventDefault();
-        let isValid = await isValidCredentials(this.state.username, this.state.password);
+        let isValid = isValidCredentials(this.state.username, this.state.password);
         console.log(isValid);
         if (isValid) {
             this.props.history.push({pathname: "/home", props: {username: this.state.username}});
@@ -35,7 +36,7 @@ class Login extends Component {
     render() {
         return (
             <LoginView username={this.state.username} password={this.state.password}
-                       handleUserInput={this.handleUserInput} validateUser={this.validateUser}/>
+                       handleUserInput={this.handleUserInput} handleSubmit={this.handleSubmit}/>
         )
     }
 }
