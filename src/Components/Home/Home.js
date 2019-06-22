@@ -23,7 +23,7 @@ export default class Home extends React.Component {
 
     async componentDidMount() {
         if (this.props.location.props !== undefined) {
-            await axios.get("http://localhost:1234/list-notes/" + this.props.location.props.username)
+            await axios.get(process.env.REACT_APP_API_HOST+"/"+this.props.location.props.username+"/notes")
                 .then(res => {
                     if (res.data) {
                         this.setState({
@@ -108,9 +108,17 @@ export default class Home extends React.Component {
         if (username) {
             return (
                 <div>
-                    <div className="row justify-content-center align-items-center mt-5">
-                        <h1>Your Notes</h1>
+                    <div className={"container-fluid h-100 text-dark"}>
+                        <nav className="navbar">
+                            <span className="mb-0 h1 navbar-text">Note Keeping app</span>
+                        </nav>
                     </div>
+                    <div className="container">
+                        <div className="jumbotron row justify-content-center mt-0 p-0">
+                            <h1>Your Notes</h1>
+                        </div>
+                    </div>
+
                     <div className={"notes"}>
                         {this.state.notes.map(note => {
                             return (
@@ -118,9 +126,9 @@ export default class Home extends React.Component {
                                       handleNoteDelete={this.handleNoteDelete}/>
                             );
                         })}
-                        <button onClick={this.handleAddNote} size={"lg"} style={{height: "fit-content"}}>+</button>
+                        <button onClick={this.handleAddNote} size={"lg"} className="mt-0 addNoteButton">+</button>
                         <NoteModal note={this.state.editingNote} show={this.state.show} handleClose={this.handleClose}
-                                   handleSaveNote={this.handleSaveNote} handleTitleChnage={this.handleTitleChange}
+                                   handleSaveNote={this.handleSaveNote} handleTitleChange={this.handleTitleChange}
                                    handleContentChange={this.handleContentChange}/>
                     </div>
                 </div>

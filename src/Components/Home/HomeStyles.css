@@ -16,3 +16,25 @@
     border: aliceblue;
     width: -moz-max-content;
 }
+
+.addNoteButton{
+    height: fit-content;
+    background-color: #feefc3;
+}
+
+.saveNoteButton{
+    background-color: #feefc3;
+    color: #1b1e21;
+}
+
+.inputNoteContent{
+    border: aliceblue;
+    width: 470px;
+    textIndent: 10px;
+}
+
+.inputNoteTitle{
+    border: aliceblue;
+    width: -moz-max-content;
+    textIndent: 10px;
+}
