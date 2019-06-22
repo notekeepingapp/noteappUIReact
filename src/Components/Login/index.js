@@ -1,6 +1,6 @@
 import React, {Component} from "react";
-import {isValidCredentials} from "./LoginApi";
-import "./Login.css"
+import {isValidCredentials} from "./APIservice";
+import "./style.css"
 import {LoginView} from "./LoginView";
 
 class Index extends Component {
