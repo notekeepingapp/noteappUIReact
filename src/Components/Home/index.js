@@ -1,13 +1,13 @@
 import React from "react";
 import Note from "./Note";
-import {deleteNote, saveNote, updateNote} from "./HomeApi";
-import "./HomeStyles.css"
+import {deleteNote, saveNote, updateNote} from "./APIservice";
+import "./style.css"
 import NoteModal from "./NoteModal";
 import {Redirect} from "react-router-dom";
 
 const axios = require("axios");
 
-export default class Home extends React.Component {
+export default class Index extends React.Component {
 
     constructor(props) {
         super(props);

@@ -3,7 +3,7 @@ import {isValidCredentials} from "./LoginApi";
 import "./Login.css"
 import {LoginView} from "./LoginView";
 
-class Login extends Component {
+class Index extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -41,4 +41,4 @@ class Login extends Component {
     }
 }
 
-export default Login;
+export default Index;
