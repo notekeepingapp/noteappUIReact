@@ -21,15 +21,15 @@ class Index extends Component {
         })
     };
 
-    handleSubmit = (e) => {
-        console.log("in submit method");
+    handleSubmit = async (e) => {
         e.preventDefault();
-        let isValid = isValidCredentials(this.state.username, this.state.password);
-        console.log(isValid);
-        if (isValid) {
+        let isValid = await isValidCredentials(this.state.username, this.state.password);
+        if (isValid.status===200 && isValid.data) {
             this.props.history.push({pathname: "/home", props: {username: this.state.username}});
-        } else {
+        } else if(isValid.status===200) {
             alert("username and password are incorrect");
+        }else {
+            alert("Failed to authenticate, server error");
         }
     };
 
