@@ -1,11 +1,9 @@
 import React from "react";
 import Note from "./Note";
-import {deleteNote, saveNote, updateNote} from "./APIservice";
+import {deleteNote, getNotes, saveNote, updateNote} from "./APIservice";
 import "./style.css"
 import NoteModal from "./NoteModal";
 import {Redirect} from "react-router-dom";
-
-const axios = require("axios");
 
 export default class Index extends React.Component {
 
@@ -21,22 +19,20 @@ export default class Index extends React.Component {
         };
     }
 
-    async componentDidMount() {
+    fetchNotes=async ()=>{
+        let notes = await getNotes(this.props.location.props.username);
+        if(notes.status===200){
+            this.setState({
+                notes: notes.data
+            });
+        }else {
+            alert("Error in getting notes");
+        }
+    };
+
+    componentDidMount() {
         if (this.props.location.props !== undefined) {
-            await axios.get(process.env.REACT_APP_API_HOST+"/"+this.props.location.props.username+"/notes")
-                .then(res => {
-                    if (res.data) {
-                        this.setState({
-                            notes: res.data
-                        });
-                    }
-                    else {
-                        alert("Error in getting notes");
-                    }
-                })
-                .catch(err => {
-                    return false;
-                });
+            this.fetchNotes();
         }
         else
             this.props.history.push({pathname: "/"});
