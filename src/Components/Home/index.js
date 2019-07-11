@@ -4,6 +4,7 @@ import {deleteNote, getNotes, saveNote, updateNote} from "./APIservice";
 import "./style.css"
 import NoteModal from "./NoteModal";
 import {Redirect} from "react-router-dom";
+import HeaderForm from "./HeaderForm"
 
 export default class Index extends React.Component {
 
@@ -104,17 +105,7 @@ export default class Index extends React.Component {
         if (username) {
             return (
                 <div>
-                    <div className={"container-fluid h-100 text-dark"}>
-                        <nav className="navbar">
-                            <span className="mb-0 h1 navbar-text">Note Keeping app</span>
-                        </nav>
-                    </div>
-                    <div className="container">
-                        <div className="jumbotron row justify-content-center mt-0 p-0">
-                            <h1>Your Notes</h1>
-                        </div>
-                    </div>
-
+                    <HeaderForm/>
                     <div className={"notes"}>
                         {this.state.notes.map(note => {
                             return (
