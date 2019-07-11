@@ -55,7 +55,7 @@ export default class Index extends React.Component {
     };
 
     handleAddNote = () => {
-        let addingNote = {noteTitle: "", noteContent: "", createdAt: new Date()};
+        const addingNote = {noteTitle: "", noteContent: "", createdAt: new Date()};
         this.setState({
             isOnAddNote: true,
             editingNote: addingNote,

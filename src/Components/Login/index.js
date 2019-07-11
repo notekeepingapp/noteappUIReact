@@ -14,8 +14,8 @@ class Index extends Component {
     }
 
     handleUserInput = (e) => {
-        let name = e.target.name;
-        let value = e.target.value;
+        const name = e.target.name;
+        const value = e.target.value;
         this.setState({
             [name]: value
         })
@@ -23,7 +23,7 @@ class Index extends Component {
 
     handleSubmit = async (e) => {
         e.preventDefault();
-        let isValid = await isValidCredentials(this.state.username, this.state.password);
+        const isValid = await isValidCredentials(this.state.username, this.state.password);
         if (isValid.status===200 && isValid.data) {
             this.props.history.push({pathname: "/home", props: {username: this.state.username}});
         } else if(isValid.status===200) {
