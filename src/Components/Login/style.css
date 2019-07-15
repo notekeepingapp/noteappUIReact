@@ -26,4 +26,16 @@
     .inputfield{
         background-color: #feefc3;
     }
+
+    .label{
+        display: block;
+    }
+
+    .errorMessage{
+        color: red;
+    }
+
+    p{
+        margin-bottom: 0px;
+    }
 }
