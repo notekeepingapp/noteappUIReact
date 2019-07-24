@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "axios": "^0.18.0",
+    "axios-mock-adapter": "^1.17.0",
     "history": "^4.9.0",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
@@ -15,7 +16,17 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
+    "test:watcj": "jest --watch",
+    "test:coverage": "jest --coverage --colors",
     "eject": "react-scripts eject"
+  },
+  "setupFiles": [
+    "./src/setupTests.js"
+  ],
+  "jest": {
+    "snapshotSerializers": [
+      "enzyme-to-json/serializer"
+    ]
   },
   "browserslist": [],
   "devDependencies": {
@@ -30,6 +41,9 @@
     "prettier": "1.18.2",
     "prettier-eslint": "^9.0.0",
     "prettier-stylelint": "^0.4.2",
-    "react-bootstrap": "^1.0.0-beta.8"
+    "react-bootstrap": "^1.0.0-beta.8",
+    "jest": "^24.8.0",
+    "jest-cli": "18.1.0",
+    "jest-react-native": "16.0.0"
   }
 }
