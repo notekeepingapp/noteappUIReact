@@ -18,7 +18,9 @@ const Note = props => (
           props.handleNoteDelete(props.note);
         }}
         style={{ width: 'fit-content', height: 'fit-content', alignSelf: 'flex-end' }}
-      />
+      >
+X
+      </button>
       <div>
         <Card.Body onClick={() => {
           props.handleCardClick(props.note);
