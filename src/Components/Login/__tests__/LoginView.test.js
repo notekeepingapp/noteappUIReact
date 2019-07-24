@@ -3,13 +3,9 @@ import { shallow } from 'enzyme';
 import LoginView from '../LoginView';
 
 
-describe('LoginComponent rendering', () => {
-  let component;
-  beforeEach(() => {
-    component = shallow(<LoginView />);
-  });
-
-  it('should have LoginComponent', () => {
+describe('Login View rendering', () => {
+  it('should match login view snapshot', () => {
+    const component = shallow(<LoginView />);
     expect(component).toMatchSnapshot();
   });
 });
