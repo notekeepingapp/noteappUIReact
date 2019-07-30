@@ -1,3 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`Login View Tests should match login view snapshot 1`] = `ShallowWrapper {}`;
+
 exports[`Login View rendering should match login view snapshot 1`] = `ShallowWrapper {}`;

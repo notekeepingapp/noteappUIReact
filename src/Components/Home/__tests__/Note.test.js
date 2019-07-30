@@ -3,12 +3,25 @@ import { shallow } from 'enzyme';
 import Note from '../Note';
 
 describe('Note View rendering', () => {
-  test('should match Note view snapshot', () => {
-    const note = {
-      noteTitle: 'Anju',
-      noteContent: 'admin1',
+  let note;
+  let mockFn;
+  let mockNote;
+  beforeEach(() => {
+    mockFn = jest.fn();
+    mockNote = {
+      noteTitle: 'Twinkle',
+      noteContent: 'Twinkle twinkle little star',
     };
-    const component = shallow(<Note note={note} />);
-    expect(component).toMatchSnapshot();
+  });
+
+  it('should match Note view snapshot', () => {
+    note = shallow(<Note note={mockNote} />);
+    expect(note).toMatchSnapshot();
+  });
+
+  it('should call mock function when the note delete button is pressed', () => {
+    note = shallow(<Note note={mockNote} handleNoteDelete={mockFn} />);
+    note.find('button').simulate('click');
+    expect(mockFn).toHaveBeenCalled();
   });
 });

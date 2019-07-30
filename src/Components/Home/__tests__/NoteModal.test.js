@@ -4,12 +4,36 @@ import NoteModel from '../NoteModal';
 
 
 describe('Note Model rendering', () => {
-  it('should match NoteModel', () => {
-    const note = {
+  let noteModel;
+  let mockFn;
+  beforeEach(() => {
+    mockFn = jest.fn();
+  });
+
+  it('should match NoteModel snapshot', () => {
+    const mockNote = {
       noteTitle: 'Anju',
       noteContent: 'admin1',
     };
-    const component = shallow(<NoteModel note={note} />);
-    expect(component).toMatchSnapshot();
+    noteModel = shallow(<NoteModel note={mockNote} />);
+    expect(noteModel).toMatchSnapshot();
+  });
+
+  it('should call the mock function when note title is changed', () => {
+    noteModel = shallow(<NoteModel handleTitleChange={mockFn} />);
+    noteModel.find('input.inputNoteTitle').simulate('change', { target: { value: 'Hakuna Matata' } });
+    expect(mockFn).toHaveBeenCalled();
+  });
+
+  it('should call the mock function when note content is changed', () => {
+    noteModel = shallow(<NoteModel handleContentChange={mockFn} />);
+    noteModel.find('input.inputNoteContent').simulate('change', { target: { value: 'Hakuna Matata' } });
+    expect(mockFn).toHaveBeenCalled();
+  });
+
+  it('should call the mock function when save button is pressed', () => {
+    noteModel = shallow(<NoteModel handleSaveNote={mockFn} />);
+    noteModel.find('Button.saveNoteButton').simulate('click');
+    expect(mockFn).toHaveBeenCalled();
   });
 });
